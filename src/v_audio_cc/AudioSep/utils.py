@@ -86,43 +86,43 @@ def get_audioset632_id_to_lb(ontology_path: str) -> Dict:
     return audioset632_id_to_lb
 
 
-def load_pretrained_panns(
-    model_type: str,
-    checkpoint_path: str,
-    freeze: bool
-) -> nn.Module:
-    r"""Load pretrained pretrained audio neural networks (PANNs).
+# def load_pretrained_panns(
+#     model_type: str,
+#     checkpoint_path: str,
+#     freeze: bool
+# ) -> nn.Module:
+#     r"""Load pretrained pretrained audio neural networks (PANNs).
 
-    Args:
-        model_type: str, e.g., "Cnn14"
-        checkpoint_path, str, e.g., "Cnn14_mAP=0.431.pth"
-        freeze: bool
+#     Args:
+#         model_type: str, e.g., "Cnn14"
+#         checkpoint_path, str, e.g., "Cnn14_mAP=0.431.pth"
+#         freeze: bool
 
-    Returns:
-        model: nn.Module
-    """
+#     Returns:
+#         model: nn.Module
+#     """
 
-    if model_type == "Cnn14":
-        Model = Cnn14
+#     if model_type == "Cnn14":
+#         Model = Cnn14
 
-    elif model_type == "Cnn14_DecisionLevelMax":
-        Model = Cnn14_DecisionLevelMax
+#     elif model_type == "Cnn14_DecisionLevelMax":
+#         Model = Cnn14_DecisionLevelMax
 
-    else:
-        raise NotImplementedError
+#     else:
+#         raise NotImplementedError
 
-    model = Model(sample_rate=32000, window_size=1024, hop_size=320,
-                  mel_bins=64, fmin=50, fmax=14000, classes_num=527)
+#     model = Model(sample_rate=32000, window_size=1024, hop_size=320,
+#                   mel_bins=64, fmin=50, fmax=14000, classes_num=527)
 
-    if checkpoint_path:
-        checkpoint = torch.load(checkpoint_path, map_location="cpu")
-        model.load_state_dict(checkpoint["model"])
+#     if checkpoint_path:
+#         checkpoint = torch.load(checkpoint_path, map_location="cpu")
+#         model.load_state_dict(checkpoint["model"])
 
-    if freeze:
-        for param in model.parameters():
-            param.requires_grad = False
+#     if freeze:
+#         for param in model.parameters():
+#             param.requires_grad = False
 
-    return model
+#     return model
 
 
 def energy(x):
